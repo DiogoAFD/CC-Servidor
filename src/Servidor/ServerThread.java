@@ -37,6 +37,7 @@ public class ServerThread extends Thread {
     public void dispacher(byte[] pdu) throws IOException {
 
         char codigo = (char) pdu[2];
+        System.out.println("codig -> "+codigo);
         switch (codigo) {
             /*case '0':
                 //login de utilizador
@@ -60,13 +61,13 @@ public class ServerThread extends Thread {
         for (i = 7; (char) pdu[i] != ','; i++) {
             name += (char) pdu[i];
         }
+        // faz i++ ao inicio para avancar o ,
         for (i++; (char) pdu[i] != ','; i++) {
             pass += (char) pdu[i];
         }
         for (i++; (char) pdu[i] != ','; i++) {
             ip += (char) pdu[i];
         }
-        // faz i++ ao inicio para avancar o ,
         for (i++; (char) pdu[i] != '\0'; i++) {
             porta += (char) pdu[i];
         }
@@ -74,10 +75,13 @@ public class ServerThread extends Thread {
         Users utilizador = new Users(id, name, pass, ip, porta);
 
         if (this.ipExiste(ip)) {
-            cs.sendMessage(1 + "ip ja existe");
+            i--;
+            System.out.println("cheguei");
+            cs.sendMessage("1,ip ja existe");
         } else if (users.put(id, utilizador) != null) {
-            cs.sendMessage(1 + "ok" + id + "," + porta);
+            cs.sendMessage("1,ok");
         } else {
+            i--;
             cs.sendMessage("KO");
         }
     }

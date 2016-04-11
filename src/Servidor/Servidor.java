@@ -12,15 +12,15 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class Servidor {
 
+    static ConcurrentHashMap<Integer, Users> utilizadores;
+    
     public static void main(String[] args) throws IOException {
-
+        utilizadores = null;
         try {
-
-            String ipServer = "";
-            Socket cs = null;
-
-            ConcurrentHashMap<Integer, Users> utilizadores = new ConcurrentHashMap<>();
+            
+            utilizadores = new ConcurrentHashMap<>();
             ServerSocket ss = new ServerSocket(2000);
+            Socket cs = null;
 
             while ((cs = ss.accept()) != null){
                 ServerThread t = new ServerThread(utilizadores, cs);
