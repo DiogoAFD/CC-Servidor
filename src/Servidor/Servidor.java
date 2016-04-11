@@ -23,7 +23,7 @@ public class Servidor {
             ServerSocket ss = new ServerSocket(2000);
 
             while ((cs = ss.accept()) != null) {
-
+                System.out.println("server");
                 ServerThread t = new ServerThread(utilizadores, cs);
 
                 t.start();
