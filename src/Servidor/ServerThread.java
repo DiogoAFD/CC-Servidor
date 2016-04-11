@@ -14,18 +14,80 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ServerThread extends Thread {
 
     private ConcurrentHashMap<Integer, Users> users;
-    private Socket cs;
+    private byte[] pdu;
+    private Connect cs;
+    private int id;
 
-    public ServerThread(ConcurrentHashMap<Integer, Users> user, Socket cs) {
+    public ServerThread(ConcurrentHashMap<Integer, Users> user, Socket s) throws IOException {
         this.users = user;
-        this.cs = cs;
+        this.cs = new Connect(s);
+        id = 0;
     }
 
     public void run() {
         try {
+            while ((pdu = cs.readPDU()) != null) {
+                dispacher(pdu);
+            }
+        } catch (IOException e) {
+            System.err.println(e.toString());
+        }
+    }
+
+    public void dispacher(byte[] pdu) throws IOException {
+
+        char codigo = (char) pdu[2];
+        switch (codigo) {
+            /*case '0':
+                //login de utilizador
+                login(msg);
+                break;*/
+            case '1':
+                //registo de novo utilizador
+                registar(pdu);
+                break;
+            default:
+                //mensagem mal recebida - codigo inexistente
+                cs.sendMessage("KO");
+                break;
+        }
+    }
+
+    private void registar(byte[] pdu) {
+        int i;
+        String name = "", pass = "", ip = "", porta = "";
+
+        for (i = 7; (char) pdu[i] != ','; i++) {
+            name += (char) pdu[i];
+        }
+        for (i++; (char) pdu[i] != ','; i++) {
+            pass += (char) pdu[i];
+        }
+        for (i++; (char) pdu[i] != ','; i++) {
+            ip += (char) pdu[i];
+        }
+        // faz i++ ao inicio para avancar o ,
+        for (i++; (char) pdu[i] != '\0'; i++) {
+            porta += (char) pdu[i];
+        }
+        id++;
+        Users utilizador = new Users(id, name, pass, ip, porta);
+
+        if (this.ipExiste(ip)) {
+            cs.sendMessage(1 + "ip ja existe");
+        } else if (users.put(id, utilizador) != null) {
+            cs.sendMessage(1 + "ok" + id + "," + porta);
+        } else {
+            cs.sendMessage("KO");
+        }
+    }
+
+    /*
+    public void run() {
+        try {
             System.out.println("gsdjhzdf");
             InputStream in = cs.getInputStream();
-            
+
             byte[] pdu = new byte[100];
 
             in.read(pdu); // preenche o array pdu
@@ -55,12 +117,21 @@ public class ServerThread extends Thread {
             System.out.println("cheugi2");
             users.put(id, utilizador);
             System.out.println("cheguei");
-            System.out.println("User: " + id + ", porta: " + porta + ", ip: " + ip + "Por");
+            System.out.println("User: " + id + ", porta: " + porta + ", ip: " + ip);
 
             //OutputStream out = cs.getOutputStream();
             //out.write(pdu);
         } catch (IOException e) {
             System.err.println(e.toString());
         }
+    }*/
+    private boolean ipExiste(String ip) {
+        for (Users s : users.values()) {
+            if (s.getIp().equals(ip)) {
+                return true;
+            }
+        }
+        return false;
     }
+
 }

@@ -30,4 +30,24 @@ public class Users {
         this.porta = porta;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public String getPorta() {
+        return porta;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
 }

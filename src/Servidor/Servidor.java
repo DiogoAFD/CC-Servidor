@@ -22,12 +22,9 @@ public class Servidor {
             ConcurrentHashMap<Integer, Users> utilizadores = new ConcurrentHashMap<>();
             ServerSocket ss = new ServerSocket(2000);
 
-            while ((cs = ss.accept()) != null) {
-                System.out.println("server");
+            while ((cs = ss.accept()) != null){
                 ServerThread t = new ServerThread(utilizadores, cs);
-
                 t.start();
-
             }
         } catch (IOException e) {
             System.err.println(e.getMessage());
