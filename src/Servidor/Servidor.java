@@ -27,6 +27,8 @@ public class Servidor {
                 ServerThread t = new ServerThread(utilizadores, cs);
 
                 t.start();
+                
+                
 
             }
         } catch (IOException e) {

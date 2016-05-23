@@ -48,6 +48,7 @@ public class ServerThread extends Thread {
             users.put(id, utilizador);
 
             System.out.println("User: " + id + ", porta: " + porta + ", ip: " + ip);
+            System.out.println("Existem "+users.size()+" no sistema");
 
             //OutputStream out = cs.getOutputStream();
             //out.write(pdu);
