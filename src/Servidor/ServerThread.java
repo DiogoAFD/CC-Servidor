@@ -22,13 +22,16 @@ public class ServerThread extends Thread {
     }
 
     public void run() {
-        try {
+        try{
 
             InputStream in = cs.getInputStream();
 
             byte[] pdu = new byte[100];
 
             in.read(pdu); // preenche o array pdu
+            int op=pdu[2];
+            switch(op){
+                case 1:
             String porta = "";
             String ip = "";
             int i;
@@ -49,11 +52,33 @@ public class ServerThread extends Thread {
 
             System.out.println("User: " + id + ", porta: " + porta + ", ip: " + ip);
             System.out.println("Existem "+users.size()+" no sistema");
+            
+                case 2:
+                    String nomeMusica ="";
+                    String banda="";
+                    String extensao ="";
+                    
+                    for(i=7;(char) pdu[i] != ','; i++){
+                     nomeMusica += (char) pdu[i];
+                    }
+                    
+                for(i++;(char) pdu[i] != ','; i++){
+                     banda += (char) pdu[i];
+                    }
+                for(i++;(char) pdu[i] != '\0'; i++){
+                     extensao += (char) pdu[i];
+                    }
+               
+              
+                
+                    
 
             //OutputStream out = cs.getOutputStream();
             //out.write(pdu);
-        } catch (IOException e) {
+        }
+        } catch(IOException e) {
             System.err.println(e.toString());
         }
+    
     }
 }
