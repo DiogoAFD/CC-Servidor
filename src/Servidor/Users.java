@@ -8,19 +8,46 @@ package Servidor;
 public class Users {
 
     private Integer id;
-    private String porta;
+    private String name;
+    private String pass;
     private String ip;
+    private String porta;
 
     public Users() {
         this.id = 0;
-        this.porta = "";
+        this.name = "";
+        this.pass = "";
         this.ip = "";
+        this.porta = "";
+        
     }
 
-    public Users(Integer id, String porta, String ip) {
+    public Users(Integer id, String name, String pass, String ip, String porta) {
         this.id = id;
-        this.porta = porta;
+        this.name = name;
+        this.pass = pass;
         this.ip = ip;
+        this.porta = porta;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public String getPorta() {
+        return porta;
+    }
+
+    public String getIp() {
+        return ip;
     }
 
 }
