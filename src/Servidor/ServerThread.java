@@ -25,9 +25,6 @@ public class ServerThread extends Thread {
     }
 
     public void run() {
-<<<<<<< HEAD
-        try{
-=======
         try {
             while ((pdu = cs.readPDU()) != null) {
                 dispacher(pdu);
@@ -88,8 +85,7 @@ public class ServerThread extends Thread {
             cs.sendMessage("KO");
         }
     }
->>>>>>> origin/master
-
+    
     /*
     public void run() {
         try {
@@ -168,7 +164,5 @@ public class ServerThread extends Thread {
             }
         }
         return false;
->>>>>>> origin/master
     }
-
 }

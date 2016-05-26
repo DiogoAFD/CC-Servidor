@@ -25,12 +25,6 @@ public class Servidor {
             while ((cs = ss.accept()) != null){
                 ServerThread t = new ServerThread(utilizadores, cs);
                 t.start();
-<<<<<<< HEAD
-                
-                
-
-=======
->>>>>>> origin/master
             }
         } catch (IOException e) {
             System.err.println(e.getMessage());
