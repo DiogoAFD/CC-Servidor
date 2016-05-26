@@ -86,77 +86,7 @@ public class ServerThread extends Thread {
         }
     }
     
-    /*
-    public void run() {
-        try {
-            System.out.println("gsdjhzdf");
-            InputStream in = cs.getInputStream();
-
-            byte[] pdu = new byte[100];
-
-            in.read(pdu); // preenche o array pdu
-            int op=pdu[2];
-            switch(op){
-                case 1:
-            String porta = "";
-            String ip = "";
-            String name = "";
-            String pass = "";
-            int i;
-            for (i = 7; (char) pdu[i] != ','; i++) {
-                name += (char) pdu[i];
-            }
-            for (i++; (char) pdu[i] != ','; i++) {
-                pass += (char) pdu[i];
-            }
-            for (i++; (char) pdu[i] != ','; i++) {
-                ip += (char) pdu[i];
-            }
-            // faz i++ ao inicio para avancar o ,
-            for (i++; (char) pdu[i] != '\0'; i++) {
-                porta += (char) pdu[i];
-            }
-            System.out.println("fors");
-            //ARRANJAR ISTO
-            int id = 0;
-
-            Users utilizador = new Users(id, name, pass, ip, porta);
-            System.out.println("cheugi2");
-            users.put(id, utilizador);
-            System.out.println("cheguei");
-            System.out.println("User: " + id + ", porta: " + porta + ", ip: " + ip);
-            System.out.println("Existem "+users.size()+" no sistema");
-            
-                case 2:
-                    String nomeMusica ="";
-                    String banda="";
-                    String extensao ="";
-                    
-                    for(i=7;(char) pdu[i] != ','; i++){
-                     nomeMusica += (char) pdu[i];
-                    }
-                    
-                for(i++;(char) pdu[i] != ','; i++){
-                     banda += (char) pdu[i];
-                    }
-                for(i++;(char) pdu[i] != '\0'; i++){
-                     extensao += (char) pdu[i];
-                    }
-               
-              
-                
-                    
-
-            //OutputStream out = cs.getOutputStream();
-            //out.write(pdu);
-        }
-        } catch(IOException e) {
-            System.err.println(e.toString());
-        }
-<<<<<<< HEAD
     
-=======
-    }*/
     private boolean ipExiste(String ip) {
         for (Users s : users.values()) {
             if (s.getIp().equals(ip)) {
