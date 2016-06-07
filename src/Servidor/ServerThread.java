@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerThread extends Thread {
@@ -84,6 +85,33 @@ public class ServerThread extends Thread {
             i--;
             cs.sendMessage("KO");
         }
+    }
+    
+    private void perguntarFicheiro(byte[] pdu){
+        int i;
+        String nomeMusica = "", banda = "", extensao="";
+        
+          for (i = 7; (char) pdu[i] != ','; i++) {
+            nomeMusica += (char) pdu[i];
+        }
+        // faz i++ ao inicio para avancar o ,
+        for (i++; (char) pdu[i] != ','; i++) {
+            banda += (char) pdu[i];
+        }
+        for (i++; (char) pdu[i] != '\0'; i++) {
+            extensao += (char) pdu[i];
+        }
+        
+        for(Map.Entry<Integer, Users> us:users.entrySet()){
+            
+           cs.sendMessage(new String(nomeMusica","+banda+","+extensao));
+        
+        }
+        
+        
+        
+        
+    
     }
     
     
