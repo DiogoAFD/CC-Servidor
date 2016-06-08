@@ -48,6 +48,9 @@ public class ServerThread extends Thread {
                 //registo de novo utilizador
                 registar(pdu);
                 break;
+            case '2':
+                perguntarFicheiro(pdu);
+                break;
             default:
                 //mensagem mal recebida - codigo inexistente
                 cs.sendMessage("KO");
@@ -55,7 +58,7 @@ public class ServerThread extends Thread {
         }
     }
 
-    private void registar(byte[] pdu) {
+    private void registar(byte[] pdu) throws IOException {
         int i;
         String name = "", pass = "", ip = "", porta = "";
 
@@ -87,7 +90,7 @@ public class ServerThread extends Thread {
         }
     }
     
-    private void perguntarFicheiro(byte[] pdu){
+    private void perguntarFicheiro(byte[] pdu) throws IOException{
         int i;
         String nomeMusica = "", banda = "", extensao="";
         
@@ -102,15 +105,25 @@ public class ServerThread extends Thread {
             extensao += (char) pdu[i];
         }
         
+        String pduAux=new String(nomeMusica+","+banda+","+extensao);
+        
         for(Map.Entry<Integer, Users> us:users.entrySet()){
             
-           cs.sendMessage(new String(nomeMusica","+banda+","+extensao));
+           Socket auxS= us.getValue().getSc();
+           Connect cc = new Connect(auxS);
+           cc.
+           
         
         }
         
         
-        
-        
+  }
+    
+    /* Este metodo vai receber as resposta de todos os clientes*/
+    
+    public void trataRespostas(){
+    
+    
     
     }
     

@@ -36,6 +36,16 @@ public class Connect {
         in.read(pdu);
         return pdu;
     }
+
+    public InputStream getIn() {
+        return in;
+    }
+
+    public PrintWriter getOut() {
+        return out;
+    }
+    
+    
     
     public void sendMessage(String msg){
         out.println(msg);
