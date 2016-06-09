@@ -49,7 +49,7 @@ public class ServerThread extends Thread {
                 registar(pdu);
                 break;
             case '2':
-                perguntarFicheiro(pdu);
+                perguntarFicheiro(pdu,id);
                 break;
             default:
                 //mensagem mal recebida - codigo inexistente
@@ -90,15 +90,18 @@ public class ServerThread extends Thread {
         }
     }
     
-    private void perguntarFicheiro(byte[] pdu) throws IOException{
+    // o id é do cliente que faz o pedido e direciona o pdu de pedido para todos os cliente registados no servidor
+    private void perguntarFicheiro(byte[] pdu,int id1) throws IOException{
         
         
         for(Map.Entry<Integer, Users> us:users.entrySet()){
             
+            if(us.getKey()!=id1){
+            
            Socket auxS= us.getValue().getSc();
            Connect cc = new Connect(auxS);
-           cc.getIn().read(pdu);
-           
+           cc.getOut().print(pdu);
+            }
         
         }
         
