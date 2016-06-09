@@ -15,7 +15,7 @@ public class Users {
     private String pass;
     private String ip;
     private String porta;
-   // private Socket Sc;
+  
 
     public Users() {
         this.id = 0;
