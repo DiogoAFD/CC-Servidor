@@ -23,7 +23,7 @@ public class Users {
         this.pass = "";
         this.ip = "";
         this.porta = "";
-        //this.Sc=new Socket();
+  
         
     }
 
@@ -36,7 +36,7 @@ public class Users {
         this.ip = ip;
         this.porta = porta;
         
-        //this.Sc=new Socket(ip,Integer.getInteger(porta));
+        
         
     }
 
@@ -60,19 +60,7 @@ public class Users {
         return ip;
     }
 
-<<<<<<< HEAD
-    
-    
-=======
-   /* public void setSc(Socket Sc) {
-        this.Sc = Sc;
-    }
 
-    public Socket getSc() {
-        return Sc;
-    }
-    */
->>>>>>> a036f7850dba602d2c34c177b7474470c4909262
     
 
 }

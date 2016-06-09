@@ -100,7 +100,7 @@ public class ServerThread extends Thread {
     }
     
     // o id é do cliente que faz o pedido e direciona o pdu de pedido para todos os cliente registados no servidor
-   /* private void perguntarFicheiro(byte[] pdu,int id1) throws IOException{
+   private void perguntarFicheiro(byte[] pdu,int id1) throws IOException{
         
         
         for(Map.Entry<Integer, Users> us:users.entrySet()){
@@ -115,23 +115,30 @@ public class ServerThread extends Thread {
         }
         
         
-  }*/
+  }
     
     /* Este metodo vai receber as resposta de todos os clientes e encaminha las 
     para o cliente que fez o pedido*/
     
-    public void trataRespostas(int ident){
+    public void trataRespostas(int ident) throws IOException{
         
         
+        Users u= users.get(ident);
+        Socket aux=new Socket(String.valueOf(ident),Integer.getInteger(u.getPorta()));
+        Connect cc = new Connect(aux);
         
-      
-     for(Map.Entry<Integer, Users> us:users.entrySet()){
+        while( (pdu= cs.readPDU()) != null){
+        
+            if(pdu[2]==3) cc.getOut().print(pdu);
+        
+        
+        }
          
          
     
     
     }
-    }
+    
     
     
     private boolean ipExiste(String ip) {
