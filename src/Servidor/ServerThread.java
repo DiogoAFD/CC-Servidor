@@ -98,7 +98,7 @@ public class ServerThread extends Thread {
             
             if(us.getKey()!=id1){
             
-           Socket auxS= us.getValue().getSc();
+           Socket auxS= new Socket(us.getValue().getIp(),Integer.getInteger(us.getValue().getPorta()));
            Connect cc = new Connect(auxS);
            cc.getOut().print(pdu);
             }
@@ -108,12 +108,20 @@ public class ServerThread extends Thread {
         
   }
     
-    /* Este metodo vai receber as resposta de todos os clientes*/
+    /* Este metodo vai receber as resposta de todos os clientes e encaminha las 
+    para o cliente que fez o pedido*/
     
-    public void trataRespostas(){
+    public void trataRespostas(int ident){
+        
+        
+        
+      
+     for(Map.Entry<Integer, Users> us:users.entrySet()){
+         
+         
     
     
-    
+    }
     }
     
     

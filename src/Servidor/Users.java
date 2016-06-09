@@ -56,13 +56,7 @@ public class Users {
         return ip;
     }
 
-    public void setSc(Socket Sc) {
-        this.Sc = Sc;
-    }
-
-    public Socket getSc() {
-        return Sc;
-    }
+    
     
     
 

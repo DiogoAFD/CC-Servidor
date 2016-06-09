@@ -3,6 +3,7 @@
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /*
@@ -24,6 +25,9 @@ public class Servidor {
 
             while ((cs = ss.accept()) != null){
                 ServerThread t = new ServerThread(utilizadores, cs);
+                for(Map.Entry<Integer,Users> us:utilizadores.entrySet()){
+                us.toString();
+                }
                 t.start();
             }
         } catch (IOException e) {
