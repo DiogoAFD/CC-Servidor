@@ -15,7 +15,7 @@ public class Users {
     private String pass;
     private String ip;
     private String porta;
-    private Socket Sc;
+   // private Socket Sc;
 
     public Users() {
         this.id = 0;
@@ -23,17 +23,21 @@ public class Users {
         this.pass = "";
         this.ip = "";
         this.porta = "";
-        this.Sc=new Socket();
+        //this.Sc=new Socket();
         
     }
 
     public Users(Integer id, String name, String pass, String ip, String porta) throws IOException {
+        
         this.id = id;
         this.name = name;
         this.pass = pass;
+        
         this.ip = ip;
         this.porta = porta;
-        this.Sc=new Socket(ip,Integer.getInteger(porta));
+        
+        //this.Sc=new Socket(ip,Integer.getInteger(porta));
+        
     }
 
     public Integer getId() {
@@ -56,14 +60,14 @@ public class Users {
         return ip;
     }
 
-    public void setSc(Socket Sc) {
+   /* public void setSc(Socket Sc) {
         this.Sc = Sc;
     }
 
     public Socket getSc() {
         return Sc;
     }
-    
+    */
     
 
 }

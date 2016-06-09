@@ -37,19 +37,20 @@ public class ServerThread extends Thread {
 
     public void dispacher(byte[] pdu) throws IOException {
 
-        char codigo = (char) pdu[2];
-        System.out.println("codig -> "+codigo);
-        switch (codigo) {
-            /*case '0':
+        
+        //System.out.println(pdu[2]);
+        switch (pdu[2]) {
+            /*case 0:
                 //login de utilizador
                 login(msg);
                 break;*/
-            case '1':
+            case 1:
                 //registo de novo utilizador
                 registar(pdu);
+               // System.out.println("");
                 break;
-            case '2':
-                perguntarFicheiro(pdu,id);
+            case 2:
+                //perguntarFicheiro(pdu,id);
                 break;
             default:
                 //mensagem mal recebida - codigo inexistente
@@ -59,39 +60,47 @@ public class ServerThread extends Thread {
     }
 
     private void registar(byte[] pdu) throws IOException {
+        
+       
         int i;
         String name = "", pass = "", ip = "", porta = "";
 
         for (i = 7; (char) pdu[i] != ','; i++) {
             name += (char) pdu[i];
         }
+       
         // faz i++ ao inicio para avancar o ,
         for (i++; (char) pdu[i] != ','; i++) {
             pass += (char) pdu[i];
         }
+      
         for (i++; (char) pdu[i] != ','; i++) {
             ip += (char) pdu[i];
         }
+        
         for (i++; (char) pdu[i] != '\0'; i++) {
             porta += (char) pdu[i];
         }
-        id++;
-        Users utilizador = new Users(id, name, pass, ip, porta);
-
-        if (this.ipExiste(ip)) {
+       
+        //id++;
+        id=users.keySet().size();
+        Users utilizador = new Users(id, name, pass, ip, porta);   
+        
+        if (this.ipExiste(ip)) {  
             i--;
-            System.out.println("cheguei");
             cs.sendMessage("1,ip ja existe");
-        } else if (users.put(id, utilizador) != null) {
+        } 
+        else{
+            //System.out.println("Antes do PUT" +users.keySet().size());
+            users.put(id, utilizador);
+            //System.out.println("Depois do PUT" +users.keySet().size());
+            
             cs.sendMessage("1,ok");
-        } else {
-            i--;
-            cs.sendMessage("KO");
-        }
+        } 
     }
     
     // o id é do cliente que faz o pedido e direciona o pdu de pedido para todos os cliente registados no servidor
-    private void perguntarFicheiro(byte[] pdu,int id1) throws IOException{
+   /* private void perguntarFicheiro(byte[] pdu,int id1) throws IOException{
         
         
         for(Map.Entry<Integer, Users> us:users.entrySet()){
@@ -106,7 +115,7 @@ public class ServerThread extends Thread {
         }
         
         
-  }
+  }*/
     
     /* Este metodo vai receber as resposta de todos os clientes*/
     
@@ -125,4 +134,6 @@ public class ServerThread extends Thread {
         }
         return false;
     }
+    
+    
 }
