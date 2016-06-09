@@ -91,27 +91,13 @@ public class ServerThread extends Thread {
     }
     
     private void perguntarFicheiro(byte[] pdu) throws IOException{
-        int i;
-        String nomeMusica = "", banda = "", extensao="";
         
-          for (i = 7; (char) pdu[i] != ','; i++) {
-            nomeMusica += (char) pdu[i];
-        }
-        // faz i++ ao inicio para avancar o ,
-        for (i++; (char) pdu[i] != ','; i++) {
-            banda += (char) pdu[i];
-        }
-        for (i++; (char) pdu[i] != '\0'; i++) {
-            extensao += (char) pdu[i];
-        }
-        
-        String pduAux=new String(nomeMusica+","+banda+","+extensao);
         
         for(Map.Entry<Integer, Users> us:users.entrySet()){
             
            Socket auxS= us.getValue().getSc();
            Connect cc = new Connect(auxS);
-           cc.
+           cc.getIn().read(pdu);
            
         
         }
