@@ -15,6 +15,7 @@ public class Users {
     private String pass;
     private String ip;
     private String porta;
+    private boolean ativo;
   
 
     public Users() {
@@ -23,6 +24,7 @@ public class Users {
         this.pass = "";
         this.ip = "";
         this.porta = "";
+        this.ativo=false;
   
         
     }
@@ -35,6 +37,7 @@ public class Users {
         
         this.ip = ip;
         this.porta = porta;
+        this.ativo=false;
         
         
         
@@ -58,6 +61,13 @@ public class Users {
 
     public String getIp() {
         return ip;
+    }
+    
+    public boolean isAtivo(){
+    
+        if(ativo==true) return true;
+        else
+            return false;
     }
 
 

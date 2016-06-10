@@ -105,7 +105,7 @@ public class ServerThread extends Thread {
         
         for(Map.Entry<Integer, Users> us:users.entrySet()){
             
-            if(us.getKey()!=id1){
+            if(us.getKey()!=id1 && us.getValue().isAtivo()){
             
            Socket auxS= new Socket(us.getValue().getIp(),Integer.getInteger(us.getValue().getPorta()));
            Connect cc = new Connect(auxS);
