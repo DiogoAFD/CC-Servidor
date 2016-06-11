@@ -35,6 +35,7 @@ public class ServerThread extends Thread {
         }
     }
 
+    @SuppressWarnings("empty-statement")
     public void dispacher(byte[] pdu) throws IOException {
 
         
@@ -50,7 +51,16 @@ public class ServerThread extends Thread {
                // System.out.println("");
                 break;
             case 2:
-                //perguntarFicheiro(pdu,id);
+                int i;
+                String ident = "";
+                for (i = 7; (char) pdu[i] != ','; i++);// tira nome da musica
+                for (i++; (char) pdu[i] != ','; i++); // tira nome da banda
+                for (i++; (char) pdu[i] != ','; i++); // tira extençao
+                for (i++; (char) pdu[i] != '\0'; i++){
+                    ident+=(char) pdu[i];
+                }
+                int cliente=Integer.getInteger(ident);
+                perguntarFicheiro(pdu,cliente);
                 break;
             default:
                 //mensagem mal recebida - codigo inexistente
