@@ -40,10 +40,10 @@ public class ServerThread extends Thread {
         
         //System.out.println(pdu[2]);
         switch (pdu[2]) {
-            /*case 0:
+            case 0:
                 //login de utilizador
-                login(msg);
-                break;*/
+                 login(pdu);
+                break;
             case 1:
                 //registo de novo utilizador
                 registar(pdu);
@@ -97,6 +97,37 @@ public class ServerThread extends Thread {
             
             cs.sendMessage("1,ok");
         } 
+    }
+    
+    private void login(byte[] pdu) throws IOException{
+        
+        int i;
+        String name = "", pass = "";
+        
+        for (i = 7; (char) pdu[i] != ','; i++) {
+            name += (char) pdu[i];
+        }
+
+        // faz i++ ao inicio para avancar o ,
+        for (i++; (char) pdu[i] != '\0'; i++) {
+              pass += (char) pdu[i];
+        }
+      
+      
+        int cont=0;
+        for(Users u:users.values()){
+            if(u.getName().equals(name) && u.getPass().equals(pass)){
+                cs.sendMessage("0,OK,"+u.getId());
+                u.setAtivo(true);
+                break;
+            }
+            else{
+                cont++;
+            }
+        }
+        if(cont==users.keySet().size()){
+            cs.sendMessage("0,KO");
+        }
     }
     
     // o id é do cliente que faz o pedido e direciona o pdu de pedido para todos os cliente registados no servidor

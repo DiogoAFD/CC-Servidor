@@ -63,6 +63,10 @@ public class Users {
         return ip;
     }
     
+     public void setAtivo(boolean k){
+        this.ativo=k;
+    }
+    
     public boolean isAtivo(){
     
         if(ativo==true) return true;
