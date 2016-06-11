@@ -62,6 +62,9 @@ public class ServerThread extends Thread {
                 int cliente=Integer.getInteger(ident);
                 perguntarFicheiro(pdu,cliente);
                 break;
+                
+            case 3:
+                trataRespostas(id);
             default:
                 //mensagem mal recebida - codigo inexistente
                 cs.sendMessage("KO");
@@ -170,7 +173,7 @@ public class ServerThread extends Thread {
         
         while( (pdu= cs.readPDU()) != null){
         
-            if(pdu[2]==3) cc.getOut().print(pdu);
+            cc.getOut().print(pdu);
         
         
         }
