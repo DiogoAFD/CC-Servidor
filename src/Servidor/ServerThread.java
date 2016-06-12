@@ -151,7 +151,7 @@ public class ServerThread extends Thread {
             
             if(us.getKey()!=id1 && us.getValue().isAtivo()){
             
-           Socket auxS= new Socket(us.getValue().getIp(),Integer.getInteger(us.getValue().getPorta()));
+           Socket auxS= new Socket(us.getValue().getIp(),Integer.parseInt(us.getValue().getPorta()));
            Connect cc = new Connect(auxS);
            cc.getOut().print(pdu);
             }
