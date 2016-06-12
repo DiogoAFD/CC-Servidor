@@ -59,7 +59,7 @@ public class ServerThread extends Thread {
                 for (i++; (char) pdu[i] != '\0'; i++){
                     ident+=(char) pdu[i];
                 }
-                int cliente=Integer.getInteger(ident);
+                int cliente=Integer.parseInt(ident);
                 perguntarFicheiro(pdu,cliente);
                 break;
                 
