@@ -60,7 +60,8 @@ public class ServerThread extends Thread {
                     ident+=(char) pdu[i];
                 }
                 int cliente=Integer.parseInt(ident);
-                perguntarFicheiro(pdu,cliente);
+                int id2=users.get(cliente).getId();
+                perguntarFicheiro(pdu,id2);
                 break;
                 
             case 3:
@@ -151,9 +152,9 @@ public class ServerThread extends Thread {
             
             if(us.getKey()!=id1 && us.getValue().isAtivo()){
             
-           Socket auxS= new Socket(us.getValue().getIp(),Integer.parseInt(us.getValue().getPorta()));
-           Connect cc = new Connect(auxS);
-           cc.getOut().print(pdu);
+                Socket auxS= new Socket(us.getValue().getIp(),Integer.parseInt(us.getValue().getPorta()));
+                Connect cc = new Connect(auxS);
+                cc.getOut().print(pdu);
             }
         
         }
@@ -168,7 +169,7 @@ public class ServerThread extends Thread {
         
         
         Users u= users.get(ident);
-        Socket aux=new Socket(String.valueOf(ident),Integer.getInteger(u.getPorta()));
+        Socket aux=new Socket(String.valueOf(ident),Integer.parseInt(u.getPorta()));
         Connect cc = new Connect(aux);
         
         while( (pdu= cs.readPDU()) != null){
